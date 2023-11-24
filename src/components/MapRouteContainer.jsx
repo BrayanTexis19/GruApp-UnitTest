@@ -1,0 +1,90 @@
+/* eslint-disable react/prop-types */
+import { Box } from "@chakra-ui/react";
+import { useState, useEffect } from "react";
+import MapTraceRoute from "./MapTraceRoute";
+import AssignedPlace from "./AssignedPlace";
+import { ObtenerDataDB } from "../firebase/firebase";
+import "../App.css";
+
+const MapRouteContainer = ({
+  setActiveStep,
+  handleChange,
+  form,
+  closestDirection,
+  setClosestDirection,
+  locationUser,
+  setlocationUser,
+  distance,
+  setDistance,
+  handleClicNewRegister,
+  userInput,
+  setUserInput,
+}) => {
+  const [locations, setlocations] = useState([]);
+  const [suggestions, setSuggestions] = useState([]); // *Arreglo de Sugerencias de direcciones
+  const apiKey = "DDlA0KW1ZhZImumGb0U23rdJd4TnhLIC"; // *API KEY Mapquest
+
+  useEffect(() => {
+    getData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  async function getData() {
+    try {
+      const datos = await ObtenerDataDB("Corralones");
+      setlocations(datos);
+      console.log(locations);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    if (userInput.length > 3) {
+      fetch(
+        `https://www.mapquestapi.com/search/v3/prediction?limit=5&collection=adminArea,poi,address&key=${apiKey}&q=${userInput}`
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.results && data.results.length > 0) {
+            const suggestions = data.results.map(
+              (location) => location.displayString
+            );
+            setSuggestions(suggestions);
+          }
+        })
+        .catch((error) => {
+          console.error("Error al buscar sugerencias de direcciones:", error);
+        });
+    } else {
+      setSuggestions([]);
+    }
+  }, [userInput, apiKey]);
+
+  return (
+    <Box h={{base:"75vh", md:"100vh"}} w="100%" display="flex" flexDir={{base: "column", md:"row"}} justifyContent={"center"}>
+      <MapTraceRoute
+        locationUser={locationUser}
+        closestDirection={closestDirection}
+        setDistance={setDistance}
+      />
+      <AssignedPlace
+        userInput={userInput}
+        setUserInput={setUserInput}
+        closestDirection={closestDirection}
+        setClosestDirection={setClosestDirection}
+        setlocationUser={setlocationUser}
+        suggestions={suggestions}
+        locations={locations}
+        distance={distance}
+        locationUser={locationUser}
+        setActiveStep={setActiveStep}
+        handleChange={handleChange}
+        form={form}
+        handleClicNewRegister={handleClicNewRegister}
+      />
+    </Box>
+  );
+};
+
+export default MapRouteContainer;
