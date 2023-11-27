@@ -54,7 +54,7 @@ const initialForm = {
   Maniobras: "",
   Status: "0",
 };
-const TrazadoPage = () => {
+const TraceRoutePage = () => {
   const [form, setForm] = useState(initialForm);
   const [closestDirection, setClosestDirection] = useState(null); //Direccion mas cercana al punto de referencia
   const [locationUser, setlocationUser] = useState(null); //ubicacion  del usuario
@@ -65,7 +65,7 @@ const TrazadoPage = () => {
     count: steps.length,
   });
   const navigate = useNavigate();
-  const GruasCost = {
+  const craneCost = {
     A: 300,
     B: 350,
     C: 370,
@@ -73,7 +73,7 @@ const TrazadoPage = () => {
   }
   const handleClicNewRegister = async () => {
     const CostoDistancia = parseInt(distance) * .15
-    const CostoGrua = GruasCost[form.TipoGrua];
+    const CostoGrua = craneCost[form.TipoGrua];
     const result = await RecordCount("Registros");
     const formattedNumber = (result + 1).toString().padStart(4, "0");
     const NewElement = {
@@ -172,4 +172,4 @@ const TrazadoPage = () => {
   );
 };
 
-export default TrazadoPage;
+export default TraceRoutePage;

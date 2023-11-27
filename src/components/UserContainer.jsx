@@ -58,7 +58,7 @@ const initailForm = {
 };
 
 const UserContainer = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const {isOpen, onOpen, onClose } = useDisclosure();
   const [isDelet, setIsDelet] = useState(false);
   const [data1, setdata1] = useState([]);
   const [form, setForm] = useState(initailForm);
@@ -203,7 +203,6 @@ const UserContainer = () => {
   };
 
   const handleDeletUser = async () => {
-    console.log(user);
     const res = await DeleteElement("Usuarios", user.docId);
     console.log("registro eliminado:", res);
     setIsDelet(false);

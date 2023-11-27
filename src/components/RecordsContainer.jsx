@@ -90,6 +90,16 @@ const RecordsContainer = () => {
     return () => clearTimeout(timeout);
   }, []);
 
+  async function getData() {
+    try {
+      const datos = await ObtenerDataDB("Registros");
+      setdata(datos);
+      setPending(false);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   const filteredData = filterText
   ? data.filter((item) =>
       item.Folio.toLowerCase().includes(filterText.toLowerCase())
@@ -124,15 +134,6 @@ const RecordsContainer = () => {
       console.error("Error al copiar al portapapeles: " + error);
     }
   };
-  async function getData() {
-    try {
-      const datos = await ObtenerDataDB("Registros");
-      setdata(datos);
-      setPending(false);
-    } catch (error) {
-      console.log(error);
-    }
-  }
 
   const validateFormCostos = () => {
     const errors = {};
@@ -299,6 +300,7 @@ const RecordsContainer = () => {
               Distancia: Registro.Costos.Distancia,
               Estancia: Registro.Costos.Estancia,
               Maniobras: Registro.Costos.Maniobras,
+              TipoGrua: Registro.Costos.TipoGrua,
               Total: Registro.Costos.Total,
             },
             Status: "2",

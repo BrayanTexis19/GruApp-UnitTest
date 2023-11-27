@@ -9,7 +9,7 @@ import LoginPage from './routes/LoginPage.jsx'
 import UserPage from './routes/UserPage.jsx'
 import CorralonesPage from './routes/CorralonesPage.jsx'
 import RecordsPage from './routes/RecordsPage.jsx'
-import TrazadoPage from './routes/TrazadoPage.jsx'
+import TraceRoutePage from './routes/TraceRoutePage.jsx'
 import MenuContainer from './components/MenuContainer.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -23,7 +23,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                   <Route path='Usuarios' element={<UserPage/> } />
                   <Route path='Corralones' element={<CorralonesPage/> } />
                   <Route path='Registros' element={<RecordsPage/> } />
-                  <Route path='Trazado-Rutas' element={<TrazadoPage/>} />
+                  <Route path='Trazado-Rutas' element={<TraceRoutePage/>} />
             </Route> 
           </Routes> 
       </BrowserRouter>

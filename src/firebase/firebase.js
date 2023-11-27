@@ -11,7 +11,6 @@ import {
   addDoc,
   setDoc,
   deleteDoc,
-
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -98,7 +97,6 @@ export async function RecordCount(refTable) {
     throw error; 
   }
 }
-
 
 export async function getRegisterInfo(ref) {
   let Registro = null;
